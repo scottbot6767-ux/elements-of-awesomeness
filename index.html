@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elements of Awesomeness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #08070A;
+  --bg2:       #0E0C14;
+  --parchment: #1A1620;
+  --border:    #2A2535;
+  --text:      #C8C0D4;
+  --muted:     #6B6278;
+  --gold:      #C8A84B;
+  --gold-dim:  #7A6428;
+  --silver:    #A8B4C0;
+  --copper:    #B87040;
+
+  --earth: #7A5C28;
+  --earth-acc: #D4A040;
+  --earth-glow: rgba(212,160,64,0.25);
+
+  --fire: #8B2510;
+  --fire-acc: #E05020;
+  --fire-glow: rgba(224,80,32,0.25);
+
+  --air: #2A4A6C;
+  --air-acc: #6090C0;
+  --air-glow: rgba(96,144,192,0.25);
+
+  --water: #164438;
+  --water-acc: #40A880;
+  --water-glow: rgba(64,168,128,0.25);
+
+  --awesome-col: #A06030;
+  --epic-col:    #8090A0;
+  --legendary-col: #C0A030;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.6;
+}
+
+/* ALCHEMICAL SYMBOLS */
+.sym {
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* HEADER */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,7,10,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+}
+
+.site-title .title-sym {
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+
+.global-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.global-xp-bar {
+  width: 140px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.global-xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  transition: width 0.6s ease;
+  border-radius: 2px;
+}
+
+/* HERO */
+.hero {
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero-symbol-ring {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.hero-element {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hero-element:hover { transform: translateY(-6px); }
+
+.element-symbol-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.hero-element[data-el="earth"] .element-symbol-wrap {
+  border-color: var(--earth-acc);
+  background: rgba(122,92,40,0.15);
+}
+.hero-element[data-el="earth"]:hover .element-symbol-wrap {
+  box-shadow: 0 0 30px var(--earth-glow);
+}
+
+.hero-element[data-el="fire"] .element-symbol-wrap {
+  border-color: var(--fire-acc);
+  background: rgba(139,37,16,0.15);
+}
+.hero-element[data-el="fire"]:hover .element-symbol-wrap {
+  box-shadow: 0 0 30px var(--fire-glow);
+}
+
+.hero-element[data-el="air"] .element-symbol-wrap {
+  border-color: var(--air-acc);
+  background: rgba(42,74,108,0.15);
+}
+.hero-element[data-el="air"]:hover .element-symbol-wrap {
+  box-shadow: 0 0 30px var(--air-glow);
+}
+
+.hero-element[data-el="water"] .element-symbol-wrap {
+  border-color: var(--water-acc);
+  background: rgba(22,68,56,0.15);
+}
+.hero-element[data-el="water"]:hover .element-symbol-wrap {
+  box-shadow: 0 0 30px var(--water-glow);
+}
+
+.element-symbol-wrap svg {
+  width: 44px;
+  height: 44px;
+}
+
+.el-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.el-pillar-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.hero-element[data-el="earth"] .el-pillar-name { color: var(--earth-acc); }
+.hero-element[data-el="fire"]  .el-pillar-name { color: var(--fire-acc);  }
+.hero-element[data-el="air"]   .el-pillar-name { color: var(--air-acc);   }
+.hero-element[data-el="water"] .el-pillar-name { color: var(--water-acc); }
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 3rem;
+}
+
+.hero-divider {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 0 auto 3rem;
+}
+
+/* PILLAR GRID */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 0 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pillar-card {
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: var(--parchment);
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+}
+
+.pillar-card[data-el="earth"]:hover { border-color: var(--earth-acc); box-shadow: 0 8px 32px var(--earth-glow); }
+.pillar-card[data-el="fire"]:hover  { border-color: var(--fire-acc);  box-shadow: 0 8px 32px var(--fire-glow);  }
+.pillar-card[data-el="air"]:hover   { border-color: var(--air-acc);   box-shadow: 0 8px 32px var(--air-glow);   }
+.pillar-card[data-el="water"]:hover { border-color: var(--water-acc); box-shadow: 0 8px 32px var(--water-glow); }
+
+.pillar-card-top {
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+}
+
+.pillar-card-top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+}
+
+.pillar-card[data-el="earth"] .pillar-card-top::before { background: var(--earth-acc); }
+.pillar-card[data-el="fire"]  .pillar-card-top::before { background: var(--fire-acc); }
+.pillar-card[data-el="air"]   .pillar-card-top::before { background: var(--air-acc); }
+.pillar-card[data-el="water"] .pillar-card-top::before { background: var(--water-acc); }
+
+.pillar-sym-large {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+}
+
+.pillar-card[data-el="earth"] .pillar-sym-large path { stroke: var(--earth-acc); }
+.pillar-card[data-el="fire"]  .pillar-sym-large path { stroke: var(--fire-acc);  }
+.pillar-card[data-el="air"]   .pillar-sym-large path { stroke: var(--air-acc);   }
+.pillar-card[data-el="water"] .pillar-sym-large path { stroke: var(--water-acc); }
+
+.pillar-card-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+
+.pillar-card[data-el="earth"] .pillar-card-name { color: var(--earth-acc); }
+.pillar-card[data-el="fire"]  .pillar-card-name { color: var(--fire-acc);  }
+.pillar-card[data-el="air"]   .pillar-card-name { color: var(--air-acc);   }
+.pillar-card[data-el="water"] .pillar-card-name { color: var(--water-acc); }
+
+.pillar-element-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.pillar-card-progress {
+  padding: 1rem 1.5rem 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.prog-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.prog-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.pillar-card[data-el="earth"] .prog-fill { background: linear-gradient(90deg, var(--earth), var(--earth-acc)); }
+.pillar-card[data-el="fire"]  .prog-fill { background: linear-gradient(90deg, var(--fire), var(--fire-acc)); }
+.pillar-card[data-el="air"]   .prog-fill { background: linear-gradient(90deg, var(--air), var(--air-acc)); }
+.pillar-card[data-el="water"] .prog-fill { background: linear-gradient(90deg, var(--water), var(--water-acc)); }
+
+.pin-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.pin-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.pin-dot.earned-awesome { background: var(--awesome-col); border-color: var(--awesome-col); }
+.pin-dot.earned-epic    { background: var(--epic-col);    border-color: var(--epic-col); }
+.pin-dot.earned-legendary { background: var(--legendary-col); border-color: var(--legendary-col); box-shadow: 0 0 6px var(--legendary-col); }
+
+/* ===== VIEWS ===== */
+#view-home, #view-pillar, #view-principle {
+  display: none;
+}
+#view-home.active, #view-pillar.active, #view-principle.active {
+  display: block;
+}
+
+/* ===== PILLAR VIEW ===== */
+.pillar-view-header {
+  padding: 3rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.pillar-view-sym {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+
+.pillar-view-meta {
+  flex: 1;
+}
+
+.pillar-view-element {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.pillar-view-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.pillar-view-progress {
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.pillar-view-progress strong {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: none;
+  color: var(--muted);
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 1rem 2rem 0;
+}
+
+.back-btn:hover { color: var(--text); border-color: var(--text); }
+
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 0 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.principle-tile {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--parchment);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.principle-tile:hover {
+  transform: translateY(-3px);
+}
+
+.principle-tile[data-el="earth"]:hover { border-color: var(--earth-acc); box-shadow: 0 6px 24px var(--earth-glow); }
+.principle-tile[data-el="fire"]:hover  { border-color: var(--fire-acc);  box-shadow: 0 6px 24px var(--fire-glow); }
+.principle-tile[data-el="air"]:hover   { border-color: var(--air-acc);   box-shadow: 0 6px 24px var(--air-glow); }
+.principle-tile[data-el="water"]:hover { border-color: var(--water-acc); box-shadow: 0 6px 24px var(--water-glow); }
+
+.principle-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.principle-tile-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.principle-tile[data-el="earth"] .principle-tile-name { color: var(--earth-acc); }
+.principle-tile[data-el="fire"]  .principle-tile-name { color: var(--fire-acc); }
+.principle-tile[data-el="air"]   .principle-tile-name { color: var(--air-acc); }
+.principle-tile[data-el="water"] .principle-tile-name { color: var(--water-acc); }
+
+.tile-badge-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.tier-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid;
+  font-family: 'Raleway', sans-serif;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.tier-badge.earned { opacity: 1; }
+
+.tier-badge.awesome  { color: var(--awesome-col);   border-color: var(--awesome-col); }
+.tier-badge.epic     { color: var(--epic-col);       border-color: var(--epic-col); }
+.tier-badge.legendary { color: var(--legendary-col); border-color: var(--legendary-col); }
+.tier-badge.legendary.earned { box-shadow: 0 0 8px rgba(192,160,48,0.4); }
+
+.tile-role-model {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.8rem;
+  font-style: italic;
+  font-family: 'IM Fell English', serif;
+}
+
+/* ===== PRINCIPLE VIEW ===== */
+.principle-view {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem;
+}
+
+.principle-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.principle-number {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.principle-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.principle-quote-block {
+  border-left: 2px solid;
+  padding-left: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.principle-quote-block p {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.principle-quote-block cite {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.principle-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.meta-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta-value {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.principle-fact-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  min-width: 200px;
+  align-self: flex-start;
+}
+
+.fact-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.fact-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--silver);
+}
+
+.role-model-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  margin-top: 0.8rem;
+  color: var(--muted);
+}
+
+/* TIER SECTIONS */
+.tier-section {
+  margin-bottom: 2rem;
+}
+
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tier-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.tier-icon.awesome  { border-color: var(--awesome-col);   color: var(--awesome-col);   background: rgba(160,96,48,0.1); }
+.tier-icon.epic     { border-color: var(--epic-col);       color: var(--epic-col);       background: rgba(128,144,160,0.1); }
+.tier-icon.legendary { border-color: var(--legendary-col); color: var(--legendary-col); background: rgba(192,160,48,0.1); }
+
+.tier-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tier-title.awesome  { color: var(--awesome-col); }
+.tier-title.epic     { color: var(--epic-col); }
+.tier-title.legendary { color: var(--legendary-col); }
+
+.tier-subtitle {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-left: auto;
+  font-style: italic;
+  font-family: 'IM Fell English', serif;
+}
+
+.tier-completed-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  display: none;
+}
+
+.tier-completed-badge.show { display: inline; }
+.tier-completed-badge.awesome   { background: rgba(160,96,48,0.2);   color: var(--awesome-col);   border: 1px solid var(--awesome-col); }
+.tier-completed-badge.epic      { background: rgba(128,144,160,0.2); color: var(--epic-col);       border: 1px solid var(--epic-col); }
+.tier-completed-badge.legendary { background: rgba(192,160,48,0.2); color: var(--legendary-col); border: 1px solid var(--legendary-col); box-shadow: 0 0 10px rgba(192,160,48,0.3); }
+
+.req-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.req-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.01);
+  position: relative;
+}
+
+.req-item:hover {
+  background: rgba(255,255,255,0.03);
+  border-color: var(--muted);
+}
+
+.req-item.checked {
+  background: rgba(255,255,255,0.02);
+}
+
+.req-item.checked.awesome-req   { border-color: rgba(160,96,48,0.4); }
+.req-item.checked.epic-req      { border-color: rgba(128,144,160,0.4); }
+.req-item.checked.legendary-req { border-color: rgba(192,160,48,0.4); }
+
+.req-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.req-item.checked .req-checkbox {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+
+.req-item.checked .req-checkbox::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(45deg) translate(-1px, -1px);
+  display: block;
+}
+
+.req-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.req-item.checked .req-text {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.15);
+}
+
+.epic-counter {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: 0.5rem 0;
+}
+
+/* ===== MEDAL BANNER ===== */
+.medal-banner {
+  display: none;
+  background: linear-gradient(135deg, rgba(192,160,48,0.1), rgba(192,160,48,0.05));
+  border: 1px solid var(--legendary-col);
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.medal-banner.show { display: block; animation: medalGlow 2s ease-in-out infinite alternate; }
+
+@keyframes medalGlow {
+  from { box-shadow: 0 0 20px rgba(192,160,48,0.2); }
+  to   { box-shadow: 0 0 40px rgba(192,160,48,0.4); }
+}
+
+.medal-banner h3 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--legendary-col);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+
+.medal-banner p {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ===== SUGGESTED ===== */
+.suggested-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.suggested-box {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.sug-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.sug-val {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--silver);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-in {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .pillar-grid { grid-template-columns: repeat(2, 1fr); }
+  .principle-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-symbol-ring { gap: 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+  .principle-grid { grid-template-columns: 1fr; }
+  .hero-symbol-ring { gap: 1rem; }
+  .element-symbol-wrap { width: 60px; height: 60px; }
+  .site-header { padding: 0.8rem 1rem; }
+  .pillar-view-header { padding: 2rem 1rem 1.5rem; flex-direction: column; }
+  .principle-hero { grid-template-columns: 1fr; }
+  .principle-fact-box { min-width: 0; }
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--parchment);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  padding: 0.8rem 1.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  z-index: 999;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-title" onclick="showHome()">
+    <svg class="title-sym" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="12,2 22,20 2,20" fill="none"/>
+      <line x1="12" y1="14" x2="22" y2="14"/>
+    </svg>
+    Elements of Awesomeness
+  </div>
+  <div class="global-progress">
+    <span id="global-pct-text">0%</span>
+    <div class="global-xp-bar"><div class="global-xp-fill" id="global-xp-fill" style="width:0%"></div></div>
+    <span id="global-checks-text">0 / 0</span>
+  </div>
+</header>
+
+<!-- ===== HOME VIEW ===== -->
+<div id="view-home" class="active">
+  <div class="hero">
+    <div class="hero-symbol-ring">
+      <a class="hero-element" data-el="earth" onclick="showPillar('physical')">
+        <div class="element-symbol-wrap">
+          <svg viewBox="0 0 60 60" fill="none"><polygon points="30,50 5,12 55,12" stroke="#D4A040" stroke-width="1.5" fill="none"/><line x1="18" y1="32" x2="42" y2="32" stroke="#D4A040" stroke-width="1.5"/></svg>
+        </div>
+        <span class="el-label">Earth</span>
+        <span class="el-pillar-name">Physical</span>
+      </a>
+      <a class="hero-element" data-el="fire" onclick="showPillar('spiritual')">
+        <div class="element-symbol-wrap">
+          <svg viewBox="0 0 60 60" fill="none"><polygon points="30,10 55,48 5,48" stroke="#E05020" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <span class="el-label">Fire</span>
+        <span class="el-pillar-name">Spiritual</span>
+      </a>
+      <a class="hero-element" data-el="air" onclick="showPillar('mental')">
+        <div class="element-symbol-wrap">
+          <svg viewBox="0 0 60 60" fill="none"><polygon points="30,10 55,48 5,48" stroke="#6090C0" stroke-width="1.5" fill="none"/><line x1="18" y1="28" x2="42" y2="28" stroke="#6090C0" stroke-width="1.5"/></svg>
+        </div>
+        <span class="el-label">Air</span>
+        <span class="el-pillar-name">Mental</span>
+      </a>
+      <a class="hero-element" data-el="water" onclick="showPillar('social')">
+        <div class="element-symbol-wrap">
+          <svg viewBox="0 0 60 60" fill="none"><polygon points="30,50 5,12 55,12" stroke="#40A880" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <span class="el-label">Water</span>
+        <span class="el-pillar-name">Social</span>
+      </a>
+    </div>
+    <div class="hero-title">Elements of Awesomeness</div>
+    <div class="hero-subtitle">A youth's guide to rising above</div>
+    <div class="hero-divider"></div>
+  </div>
+
+  <div class="pillar-grid" id="pillar-grid"></div>
+</div>
+
+<!-- ===== PILLAR VIEW ===== -->
+<div id="view-pillar">
+  <button class="back-btn" onclick="showHome()">&#8592; All Pillars</button>
+  <div class="pillar-view-header" id="pillar-view-header"></div>
+  <div class="principle-grid" id="principle-grid"></div>
+</div>
+
+<!-- ===== PRINCIPLE VIEW ===== -->
+<div id="view-principle">
+  <button class="back-btn" id="principle-back-btn">&#8592; Back</button>
+  <div class="principle-view" id="principle-view"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const PILLARS = [
+{
+  id: 'physical', name: 'Physical', element: 'Earth',
+  color: '#D4A040', glow: 'rgba(212,160,64,0.25)', stroke: '#D4A040',
+  symSvg: `<polygon points="30,50 5,12 55,12" stroke="#D4A040" stroke-width="1.5" fill="none"/><line x1="18" y1="32" x2="42" y2="32" stroke="#D4A040" stroke-width="1.5"/>`,
+  principles: [
+    {
+      id:'strength', name:'Strength', num:1,
+      quote:'"The last three or four reps is what makes the muscle grow. This area of pain divides the champion from someone else who is not a champion."',
+      author:'Arnold Schwarzenegger',
+      roleModel:'Jesse Owens', animal:'Ox',
+      fact:'Your body contains over 600 different muscles. The smallest is in your ear. The largest, your glutes.',
+      reading:'The Iliad', film:'Rocky IV',
+      awesome:[
+        '10 push-ups, 30 sit-ups, 1 pull-up',
+        'Box jump half your height; broad jump your full height',
+        'Carry 50 lbs for 50 yards',
+        'Identify all major muscle groups',
+        'Complete a balanced strength training routine for one month',
+        'Hold a 1-minute plank'
+      ],
+      epic:[
+        'Bench press your own body weight',
+        'Dunk a basketball',
+        'Take a self-defense course',
+        'Survive boot camp',
+        'Reach the highest level in a martial art',
+        'Participate in an obstacle course race',
+        'Run 40m in under 10 seconds',
+        'Pass the Presidential Fitness Test',
+        'Climb 100 feet of rope',
+        '100 push-ups, 100 sit-ups, 25 pull-ups',
+        'Compete on an obstacle course game show (e.g. American Ninja Warrior)',
+        'Lift something over your head that weighs three times your body weight'
+      ]
+    },
+    {
+      id:'endurance', name:'Endurance', num:2,
+      quote:'"We are the champions my friends. And we\'ll keep on fighting \'til the end."',
+      author:'Freddie Mercury',
+      roleModel:'Muhammad Ali', animal:'Gazelle',
+      fact:'Legend says Pheidippides, a Greek soldier, ran 25 miles from Marathon to Athens — and then he died.',
+      reading:'The Hobbit', film:'Forrest Gump',
+      awesome:[
+        'Run a mile without stopping',
+        'Swim 100 meters',
+        'Bike 10 miles',
+        'Jump rope × 100',
+        'Climb 1,000 stairs',
+        'Complete a 30-minute aerobics class or video'
+      ],
+      epic:[
+        'Run a race longer than 5K',
+        'Paddle 20 miles in a kayak or canoe',
+        'Hike 50 miles in a week',
+        'Compete in a triathlon',
+        'Bike 100 miles in one day',
+        'Attain the highest degree of a martial art',
+        'Tread water for 12 minutes',
+        'Earn the Personal Fitness merit badge',
+        'Pass the Presidential Fitness Test',
+        'Swim 100m using only the butterfly stroke',
+        'Swim more than a mile',
+        'Run a mile in under five minutes'
+      ]
+    },
+    {
+      id:'agility', name:'Agility', num:3,
+      quote:'"There are no limits. There are only plateaus, and you must not stay there, you must go beyond them."',
+      author:'Bruce Lee',
+      roleModel:'Bruce Lee', animal:'Hummingbird',
+      fact:'Golf is the only sport to have been played on the moon.',
+      reading:'Harry Potter', film:'The Karate Kid',
+      awesome:[
+        'Know the rules of and be able to play common sports (see list)',
+        'Throw and catch a ball; kick a soccer ball through a net; throw a football over a goalpost',
+        'Know how to stretch all major muscle groups',
+        'Walk across a 5-meter balance beam',
+        'Hit a baseball, golf ball, and hockey puck with proper form',
+        'Serve and return a volleyball, a tennis ball, and a badminton birdie'
+      ],
+      epic:[
+        'Win an individual sports competition',
+        'Complete a ropes course',
+        'Know the rules of and play less common sports (see list)',
+        'Hit a home run in a baseball game',
+        'Attain the highest degree of a martial art',
+        'Golf 18 holes under par',
+        'Do the splits',
+        'Pass the Presidential Fitness Test',
+        'Break a school record in athletics',
+        'Bowl over 200',
+        'Walk on your hands for 100 feet',
+        'Be named MVP for a season by a coach'
+      ]
+    },
+    {
+      id:'dexterity', name:'Dexterity', num:4,
+      quote:'"A man who works with his hands and his brain and his heart is an artist."',
+      author:'Louis Nizer',
+      roleModel:'Harry Houdini', animal:'Monkey',
+      fact:'The world record for most balls juggled simultaneously is 11.',
+      reading:'The Jungle Book', film:'The Sandlot',
+      awesome:[
+        'Successfully play a platformer, racing, and FPS video game',
+        'Type 40 words per minute',
+        'Shuffle a deck of cards and perform a magic trick',
+        'Wrap a present neatly',
+        'Bait a hook and cast a fishing pole',
+        'Thread a needle'
+      ],
+      epic:[
+        'Juggle 3 balls for longer than 2 minutes',
+        'Know 200 ASL words',
+        'Make 12 distinguishable shadow puppets',
+        'Win a marksmanship competition',
+        'Build a house of cards as tall as yourself',
+        'Beat all levels of 3 difficult video games',
+        'Play a difficult piece of music on an instrument at a recital',
+        'Carve a life-sized sculpture',
+        'Knit a sweater',
+        'Take a calligraphy class',
+        'Win a knot-tying competition'
+      ]
+    },
+    {
+      id:'poise', name:'Poise', num:5,
+      quote:'"Pain is temporary. It may last a minute, or a year, but eventually it will subside. If I quit, however, it lasts forever."',
+      author:'Lance Armstrong',
+      roleModel:'Franklin D. Roosevelt', animal:'Cat',
+      fact:'The sensation of spicy food is triggered by pain receptors, not taste buds.',
+      reading:'The Count of Monte Cristo', film:'Casino Royale',
+      awesome:[
+        'Respond respectfully to both an insult and a compliment',
+        'Know basic ballroom dance: box step, swing, cha-cha',
+        'Maintain good posture while sitting, standing, and walking',
+        'Sit still and attentive for a one-hour lecture',
+        'Hold your breath for a minute',
+        'Be able to perform 12 yoga poses (see list)'
+      ],
+      epic:[
+        'Participate in a formally organized debate',
+        'Walk on your hands 50 feet',
+        'Teach a yoga class',
+        'Fire walk',
+        'Take a ballet class',
+        'Place in a dance competition',
+        'Know advanced ballroom: Tango, Salsa, Foxtrot',
+        'Be proficient at ice skating (skate forward, backward, and land a jump)',
+        'Jump the wake on a wakeboard',
+        'Take an anger management class',
+        'Snow ski or snowboard a black diamond slope',
+        'Win a hot pepper eating competition'
+      ]
+    },
+    {
+      id:'appearance', name:'Appearance', num:6,
+      quote:'"Every girl\'s crazy \'bout a sharp dressed man."',
+      author:'ZZ Top',
+      roleModel:'John F. Kennedy', animal:'Peacock',
+      fact:'The average head has 100,000 to 150,000 individual strands of hair.',
+      reading:'The Great Gatsby', film:'Mean Girls',
+      awesome:[
+        'Practice proper hygiene daily: bathe, wash face/hands, use deodorant, brush teeth',
+        'Know the difference and uses for common toiletries (see list)',
+        'Know how to iron clothes and read fabric care labels',
+        'Dress appropriately for school, church, exercise, a job interview, and a formal occasion',
+        'Do a full load of laundry and fold clothes properly',
+        'Know the differences in fashion styles over the last century'
+      ],
+      epic:[
+        'Get paid to cut someone else\'s hair — twice',
+        'Compete in a beauty pageant or bodybuilding competition',
+        'Be a model in a fashion show or photo shoot',
+        'Knit or crochet an article of clothing',
+        'Hem pants or a skirt and take in a shirt',
+        'Know how to braid hair in 6 different ways',
+        'Prepare hygiene kits for the homeless',
+        'Be voted best dressed in the yearbook',
+        'Use a clothing pattern to sew a three-piece outfit',
+        'Start a fashion trend',
+        'Make a makeup tutorial YouTube video that gets 1,000 views'
+      ]
+    },
+    {
+      id:'firstaid', name:'First Aid', num:7,
+      quote:'"Be Prepared... so that he is never taken by surprise."',
+      author:'Robert Baden-Powell',
+      roleModel:'Florence Nightingale', animal:'Iguana',
+      fact:'Doctors once used leeches and bloodletting to cure diseases. Many people died from the treatment.',
+      reading:'Romeo and Juliet', film:'E.T.',
+      awesome:[
+        'Know how to treat a deep cut, scrape, and 1st and 2nd degree burns',
+        'Be familiar with basic over-the-counter medications (see list)',
+        'Know how to treat a cold, flu, and bacterial infections',
+        'Know how to treat sports injuries: broken bone, sprain, pulled muscle',
+        'Know when to see a doctor vs. when to dial 911',
+        'Assemble and maintain a first aid kit'
+      ],
+      epic:[
+        'Get CPR + AED certification',
+        'Save someone\'s life',
+        'Take an advanced first aid course',
+        'Earn the First Aid merit badge',
+        'Identify every organ in the body and know its function',
+        'Teach a first aid class',
+        'Sew stitches on a deep cut',
+        'Memorize the Hippocratic Oath',
+        'Know how to perform advanced emergency first aid (tourniquet, tracheotomy)',
+        'Volunteer for a year at a hospital or medical facility',
+        'Take a phlebotomy course'
+      ]
+    },
+    {
+      id:'survival', name:'Survival', num:8,
+      quote:'"I\'m a survivor. I\'m not gon\' give up. I will survive."',
+      author:'Beyoncé',
+      roleModel:'Sacagawea', animal:'Camel',
+      fact:'You can survive about 30 days without food, but only about 3 days without water.',
+      reading:'Lord of the Flies', film:'Cast Away',
+      awesome:[
+        'Know all the knots on the knot list',
+        'Be able to start a fire with one match',
+        'Know how to purify water',
+        'Set up a tent and sleep in it overnight',
+        'Use a map and compass to navigate',
+        'Find North using stars or the sun'
+      ],
+      epic:[
+        'Know Morse code',
+        'Backpack for more than 3 nights',
+        'Take a mushroom foraging class',
+        'Take a gun safety course',
+        'Build a snow shelter and sleep in it',
+        'Earn the Wilderness Survival merit badge',
+        'Catch a fish and eat it',
+        'Catch an animal in a trap',
+        'Make a fire without a match or lighter',
+        'Earn epic achievement in First Aid'
+      ]
+    },
+    {
+      id:'nutrition', name:'Nutrition', num:9,
+      quote:'"C is for cookie. That\'s good enough for me."',
+      author:'Cookie Monster',
+      roleModel:'Julia Child', animal:'Pig',
+      fact:'Technically, strawberries aren\'t berries — but bananas are.',
+      reading:'The Omnivore\'s Dilemma', film:'Supersize Me',
+      awesome:[
+        'Prepare all foods on the Meals list (eggs, pasta, chicken, rice, etc.)',
+        'Know how to cut fruit, vegetables, and meat properly',
+        'Know how to follow a recipe from start to finish',
+        'Grill a steak to different levels of doneness',
+        'Know how to operate a stove, oven, skillet, and BBQ grill',
+        'Graciously eat food you do not enjoy'
+      ],
+      epic:[
+        'Win a cooking competition',
+        'Prepare a 5-course meal for 8 guests',
+        'Get a job that requires a food handler\'s permit',
+        'Invent an original recipe',
+        'Compile a cookbook with more than 30 recipes',
+        'Earn the Cooking merit badge',
+        'Bake a loaf each of 3 different types of bread',
+        'Bake and decorate a three-tier cake',
+        'Memorize the recipe of 5 baked goods from memory',
+        'Bake a turducken',
+        'Cook a Baked Alaska for 6 people',
+        'Bake 3 dozen macarons'
+      ]
+    }
+  ]
+},
+
+{
+  id: 'mental', name: 'Mental', element: 'Air',
+  color: '#6090C0', glow: 'rgba(96,144,192,0.25)', stroke: '#6090C0',
+  symSvg: `<polygon points="30,10 55,48 5,48" stroke="#6090C0" stroke-width="1.5" fill="none"/><line x1="18" y1="28" x2="42" y2="28" stroke="#6090C0" stroke-width="1.5"/>`,
+  principles: [
+    {
+      id:'mathematics', name:'Mathematics', num:1,
+      quote:'"All is number."',
+      author:'Pythagoras',
+      roleModel:'Isaac Newton', animal:'Owl',
+      fact:'In a group of 50 people it\'s virtually certain that two of them share the same birthday.',
+      reading:'Flatland', film:'Hidden Figures',
+      awesome:[
+        'Add and subtract 3-digit numbers without a calculator',
+        'Memorize multiplication tables up to 12',
+        'Understand basic algebra: unit conversion and solving for x',
+        'Calculate the area of a rectangle, triangle, and circle; volume of a cylinder, cube, and pyramid',
+        'Calculate percentages (for tips or discounts)',
+        'Know the Order of Operations'
+      ],
+      epic:[
+        'Create a video of yourself teaching a math concept',
+        'Pass an AP Calculus test',
+        'Publish a useful app in an app store',
+        'Learn 3 programming languages',
+        'Memorize pi to the 20th digit',
+        'Score 100% on the math section of the SAT or ACT',
+        'Publish a paper in a math journal',
+        'Become a math tutor',
+        'Quickly multiply any 2-digit numbers mentally without a calculator',
+        'Win a regional Math Olympiad',
+        'Win a math-related grant'
+      ]
+    },
+    {
+      id:'history', name:'History', num:2,
+      quote:'"Those who fail to learn from history are doomed to repeat it."',
+      author:'Winston Churchill',
+      roleModel:'Benjamin Franklin', animal:'Tortoise',
+      fact:'On April 18th, 1930, the BBC had nothing to report. They simply broadcast: "There is no news."',
+      reading:'Sophie\'s World', film:'Bill & Ted\'s Excellent Adventure',
+      awesome:[
+        'Know how to use Wikipedia effectively',
+        'Be familiar with major eras of world history',
+        'Be familiar with major U.S. wars',
+        'Identify the people on U.S. currency',
+        'Navigate the reference section of a library',
+        'Be familiar with the U.S. Constitution, the Bill of Rights, and the Declaration of Independence'
+      ],
+      epic:[
+        'Teach a class about a major historical event',
+        'Pass an AP History test',
+        'Participate in a historic event',
+        'Know all Historical Figures highlighted in the book (36 figures)',
+        'Memorize all Major U.S. Wars in order',
+        'Know all Major Historical Eras in world history',
+        'Memorize the preamble of the Constitution and the Bill of Rights',
+        'Memorize the Declaration of Independence',
+        'Reenact an important battle from a major war',
+        'Visit 10 history museums',
+        'Serve as a tour guide for a historical place'
+      ]
+    },
+    {
+      id:'science', name:'Science', num:3,
+      quote:'"Science is a way of thinking much more than it is a body of knowledge."',
+      author:'Carl Sagan',
+      roleModel:'Albert Einstein', animal:'Rat',
+      fact:'Stomach acid can dissolve steel.',
+      reading:'Brave New World', film:'Jurassic Park',
+      awesome:[
+        'Read and interpret different kinds of graphs and charts',
+        'Know the scientific method and how to design and conduct an experiment',
+        'Understand significant digits and scientific notation',
+        'Be familiar with core Scientific Principles (see list)',
+        'Know how to read the periodic table',
+        'Be familiar with key Scientists throughout history (see list)'
+      ],
+      epic:[
+        'Design and conduct an experiment that proves something previously unknown',
+        'Pass an AP Biology or AP Chemistry test',
+        'Win a science competition',
+        'Make a YouTube video explaining a scientific principle',
+        'Identify 12 constellations by name',
+        'Publish a paper in a science journal',
+        'Be awarded a grant for scientific research',
+        'Visit 10 science museums',
+        'Attend 5 different science camps',
+        'Name a new plant or animal species'
+      ]
+    },
+    {
+      id:'language', name:'Language', num:4,
+      quote:'"I know nothing in the world that has as much power as a word."',
+      author:'Emily Dickinson',
+      roleModel:'William Shakespeare', animal:'Parrot',
+      fact:'The word "Buffalo" is a plural noun, adjective, and verb simultaneously — making "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo" a grammatically correct sentence.',
+      reading:'Fahrenheit 451', film:'The Princess Bride',
+      awesome:[
+        'Have a full conversation without using words',
+        'Know what makes a good story; tell a personal anecdote, a fairy tale, and a true story',
+        'Write a complete essay',
+        'Have a library card and know how to find a book',
+        'Write a formal letter',
+        'Communicate using a code (Morse, nautical flags, cipher, etc.)'
+      ],
+      epic:[
+        'Read 1,000 books (lifetime)',
+        'Pass an AP English Test',
+        'Publish a short story',
+        'Participate in NaNoWriMo',
+        'Know the logical fallacies list',
+        'Write an op-ed that is published in a newspaper',
+        'Compete in a regional spelling bee',
+        'Write a novel',
+        'Write a screenplay',
+        'Pass a language fluency test in a foreign language',
+        'Know 250 words in each of 3 foreign languages',
+        'Solve the New York Times crossword puzzle every day for a week'
+      ]
+    },
+    {
+      id:'geography', name:'Geography', num:5,
+      quote:'"The study of geography is about understanding the complexity of our world and bringing people together."',
+      author:'Barack Obama',
+      roleModel:'Marco Polo', animal:'Swallow',
+      fact:'Reno, Nevada is further west than Los Angeles, California.',
+      reading:'Around the World in 80 Days', film:'Raiders of the Lost Ark',
+      awesome:[
+        'Find your way home from 5 miles away without GPS',
+        'Know how to read a map, atlas, and GPS',
+        'Know the cities in your metro area',
+        'Be familiar with all 50 states and their capitals',
+        'Be familiar with G20 countries and their capitals',
+        'Identify all oceans and continents of the world'
+      ],
+      epic:[
+        'Travel to more than 5 different countries',
+        'Pass an AP Geography Test',
+        'Memorize all 50 U.S. states and capitals',
+        'Identify the counties in your family history',
+        'Know G20 countries and all their capitals',
+        'Identify every country on a world map',
+        'Have a place named after you on a published map',
+        'Represent your community in a national forum',
+        'Identify 100 world flags',
+        'Visit every state in the U.S.'
+      ]
+    },
+    {
+      id:'finance', name:'Finance', num:6,
+      quote:'"Money, money, money, money. Money."',
+      author:'The Isley Brothers',
+      roleModel:'Andrew Carnegie', animal:'Squirrel',
+      fact:'Americans spend over $117 billion on fast food every year.',
+      reading:'Rich Dad Poor Dad', film:'Ghostbusters',
+      awesome:[
+        'Be familiar with the investments list (savings, stocks, crypto, etc.)',
+        'Get paid for a service by someone other than your parents',
+        'Know your credit score and understand how to maintain good credit',
+        'Be able to shop for and buy groceries independently',
+        'Make a monthly budget and stick to it',
+        'Know how to evaluate a loan and how interest works'
+      ],
+      epic:[
+        'Build a profitable business',
+        'Earn and save $1,000',
+        'Take out a small loan and pay it off',
+        'Take part in a fundraiser that earns over $10,000',
+        'Apply for and be approved for a credit card with a $5,000+ limit',
+        'Open a bank account and write a check for more than $50',
+        'Earn the Personal Management merit badge',
+        'Have investments in more than 6 categories from the investments list',
+        'Attend an investment seminar',
+        'Run a successful Kickstarter campaign'
+      ]
+    },
+    {
+      id:'engineering', name:'Engineering', num:7,
+      quote:'"Science can amuse and fascinate us all, but it is engineering that changes the world."',
+      author:'Isaac Asimov',
+      roleModel:'Thomas Edison', animal:'Beaver',
+      fact:'In cold weather, the Eiffel Tower shrinks by up to six inches.',
+      reading:'Atlas Shrugged', film:'Iron Man',
+      awesome:[
+        'Build a desk, bookcase, or complicated IKEA furniture',
+        'Know the simple machines list (lever, pulley, ramp, gear, screw, wheel, wedge)',
+        'Know common tools and their uses (see list)',
+        'Build something useful out of wood',
+        'Build a LEGO set of more than 1,000 pieces',
+        'Lash poles together to build a useful structure'
+      ],
+      epic:[
+        'Fix something that is severely broken',
+        'Create a metal structure using welding',
+        'Restore a piece of old furniture to good condition',
+        'Forge something out of iron',
+        'Build a piece of original furniture',
+        'Get a patent for an invention',
+        'Build a fence',
+        'Take apart a small appliance and reassemble it (toaster, CD player, etc.)',
+        'Design and build a functioning go-cart',
+        'Install a light fixture',
+        'Remove and install a sink or a toilet',
+        'Rebuild a car engine'
+      ]
+    },
+    {
+      id:'technology', name:'Technology', num:8,
+      quote:'"The art challenges the technology, and the technology inspires the art."',
+      author:'John Lasseter',
+      roleModel:'Steve Jobs', animal:'Octopus',
+      fact:'In 1899, the commissioner of the U.S. Patent Office said: "Everything that can be invented has been invented."',
+      reading:'The Hitchhiker\'s Guide to the Galaxy', film:'Star Trek',
+      awesome:[
+        'Know how to use the internet safely',
+        'Use a word processor, spreadsheet, and slideshow software effectively',
+        'Know how to operate a copy machine, fax machine, and rotary phone',
+        'Know how to safely download and install a software program',
+        'Make a logo or graphic using design software',
+        'Know how to send an email with an attachment and basic HTML formatting'
+      ],
+      epic:[
+        '3D print something useful',
+        'Build a robot and program it to complete a complicated task',
+        'Participate in a hackathon',
+        'Build a website using HTML and CSS',
+        'Build a computer from components',
+        'Attend a technology conference',
+        'Make a YouTube channel',
+        'Earn the Programming merit badge',
+        'Design an original font',
+        'Get a software patent',
+        'Master advanced spreadsheet skills: pivot tables, VLOOKUP, etc.',
+        'Place in a robotics competition'
+      ]
+    },
+    {
+      id:'craft', name:'Craft', num:9,
+      quote:'"The Christian shoemaker does his duty not by putting crosses on shoes, but by making good shoes."',
+      author:'Martin Luther',
+      roleModel:'Betsy Ross', animal:'Spider',
+      fact:'The oldest surviving quilt today is the Tristan Quilt, made over 600 years ago.',
+      reading:'Tom Sawyer', film:'Harry Potter',
+      awesome:[
+        'Know how to use items on the craft supply list (scissors, exacto knife, hot glue, etc.)',
+        'Use papier-mâché to make a custom piñata',
+        'Braid three strands of rope or string',
+        'Sand and stain a piece of wood to a clean finish',
+        'Know how to fold 6 origami shapes',
+        'Know how to sharpen a knife properly'
+      ],
+      epic:[
+        'Make a complete outfit using a sewing machine and pattern',
+        'Hand-stitch a Halloween costume',
+        'Sew a quilt',
+        'Make something useful out of leather',
+        'Make a ceramic vase on a pottery wheel',
+        'Build a scale model of a ship',
+        'Install drywall, cover nails with putty, and paint',
+        'Make a craft and sell it on Etsy',
+        'Reupholster a piece of furniture'
+      ]
+    }
+  ]
+},
+
+{
+  id: 'spiritual', name: 'Spiritual', element: 'Fire',
+  color: '#E05020', glow: 'rgba(224,80,32,0.25)', stroke: '#E05020',
+  symSvg: `<polygon points="30,10 55,48 5,48" stroke="#E05020" stroke-width="1.5" fill="none"/>`,
+  principles: [
+    {
+      id:'integrity', name:'Integrity', num:1,
+      quote:'"The supreme quality for leadership is unquestionably integrity. Without it, no real success is possible."',
+      author:'Dwight D. Eisenhower',
+      roleModel:'Abraham Lincoln', animal:'Horse',
+      fact:'60% of people lie at least once in a 10-minute conversation.',
+      reading:'To Kill a Mockingbird', film:'Pirates of the Caribbean',
+      awesome:[
+        'Make and keep a difficult promise',
+        'Keep a harmless secret for 24 hours without slipping',
+        'Identify 12 forms of deception (lying, omission, equivocation, etc.)',
+        'Provide a list of 3 character references',
+        'Be left alone for an entire day without breaking trust',
+        'Return a lost item to its rightful owner'
+      ],
+      epic:[
+        'Memorize the 10 Commandments',
+        'Receive an award for a particularly honest act',
+        'Be featured in the news for a notably honest act',
+        'Pass a polygraph test',
+        'Write an essay of more than 5,000 words about integrity',
+        'Provide a list of 12 character references',
+        'Investigate and help break a corruption story in the news',
+        'Teach all Old Testament stories on the list',
+        'Memorize 6 scriptures about integrity',
+        'Become a certified public notary',
+        'Testify in a court case',
+        'Serve as a referee in an official sports competition'
+      ]
+    },
+    {
+      id:'virtue', name:'Virtue', num:2,
+      quote:'"Virtue is its own reward."',
+      author:'Cicero',
+      roleModel:'Mahatma Gandhi', animal:'Swan',
+      fact:'Alcohol-attributable deaths are the third-leading preventable cause of death in America. More than 88,000 people die from alcohol-related causes each year.',
+      reading:'The Chronicles of Narnia', film:'Les Misérables',
+      awesome:[
+        'Fast from food for 24 hours',
+        'Abstain from something you love for a full week',
+        'Give blood to a blood bank',
+        'Explain — in your own words — why good language matters',
+        'Set aside one day a week as a holy or reflective day',
+        'Identify 12 vices (smoking, gambling, gossip, etc.)'
+      ],
+      epic:[
+        'Memorize 6 scriptures about virtue',
+        'Memorize The Family: A Proclamation to the World',
+        'Know and teach 12 New Testament stories',
+        'Write an essay about virtue including a story of someone exemplary',
+        'Abstain from something unhealthy (e.g. soda) for an entire year',
+        'Receive an award for a particularly virtuous act',
+        'Know Catholic Saints list (10 saints)',
+        'Visit 12 different temples or holy sites',
+        'Volunteer with a mentoring program for a semester',
+        'Be featured in the news for a notably virtuous act'
+      ]
+    },
+    {
+      id:'hope', name:'Hope', num:3,
+      quote:'"Hope is the thing with feathers that perches in the soul — and never stops at all."',
+      author:'Emily Dickinson',
+      roleModel:'Martin Luther King Jr.', animal:'Dove',
+      fact:'The New York Post Office receives over 500,000 letters to Santa Claus every year.',
+      reading:'A Wrinkle in Time', film:'Star Wars',
+      awesome:[
+        'Identify 6 personal talents',
+        'Identify 6 people in your support network',
+        'Write a list of long-term life goals',
+        'Write a list of short-term goals',
+        'Know how to pray; do it daily for a month',
+        'Have something meaningful you are actively looking forward to'
+      ],
+      epic:[
+        'Keep a consistent daily journal for more than a year',
+        'Memorize 6 scriptures about hope',
+        'Volunteer 12 hours at a nursing home',
+        'Volunteer for a semester in a support group',
+        'Take part in a peaceful protest or march',
+        'Find 100 deceased relatives and complete temple or memorial work',
+        'Know your complete family history for 6 generations',
+        'Be a mentor to someone less fortunate',
+        'Know the Reformers list (Luther, Calvin, Gutenberg, etc.)',
+        'Organize a time capsule for your community',
+        'Plant 12 trees'
+      ]
+    },
+    {
+      id:'faith', name:'Faith', num:4,
+      quote:'"Faith is taking the first step even when you don\'t see the whole staircase."',
+      author:'Martin Luther King Jr.',
+      roleModel:'Joan of Arc', animal:'Dog',
+      fact:'The Bible has been translated into 1,200 different languages, including Klingon.',
+      reading:'Mere Christianity', film:'Field of Dreams',
+      awesome:[
+        'Know how to navigate scriptures and read them regularly',
+        'Know the articles of faith or creed of your church',
+        'Know 6 faith scriptures by heart',
+        'Know the main tenets of major world religions (see list)',
+        'Testify to others about your personal beliefs',
+        'Pay tithing to your church consistently'
+      ],
+      epic:[
+        'Go to a week-long church camp (FSY, Trek, etc.)',
+        'Attend a church service of 6 different faiths',
+        'Memorize your religion\'s creeds or articles of faith',
+        'Teach Sunday School for 6 months',
+        'Memorize 12 scriptures about faith',
+        'Practice the five pillars of Islam',
+        'Graduate from Seminary',
+        'Complete Catechism',
+        'Read a book of scripture cover-to-cover twice',
+        'Earn the Awesome achievement pin for every principle in the Spiritual pillar'
+      ]
+    },
+    {
+      id:'humility', name:'Humility', num:5,
+      quote:'"As long as you are proud you cannot know God. A proud man is always looking down on things and people."',
+      author:'C.S. Lewis',
+      roleModel:'George Washington', animal:'Lamb',
+      fact:'Babies are born without kneecaps.',
+      reading:'Pride and Prejudice', film:'Toy Story',
+      awesome:[
+        'Make a list of your personal blessings',
+        'Know how to apologize sincerely and effectively',
+        'Willingly accept an assignment from an ecclesiastical leader',
+        'Meditate or ponder in silence for 15 minutes',
+        'Allow someone in a hurry to go ahead of you',
+        'Know the forms of pride (conceit, arrogance, racism, narcissism, etc.)'
+      ],
+      epic:[
+        'Memorize the Lord\'s Prayer',
+        '12 hours of service at a hospital or retirement center',
+        '12 hours of service at a homeless shelter',
+        'Write thank-you notes to every teacher you\'ve had',
+        'Memorize 6 scriptures about humility',
+        'Take a course on meditation and mindfulness',
+        'Do something truly embarrassing for a worthy cause',
+        'Spend a semester in a developing country',
+        'Know the Hindu Deities list',
+        'Earn the Epic Achievement for Empathy'
+      ]
+    },
+    {
+      id:'charity', name:'Charity', num:6,
+      quote:'"It\'s not how much we give but how much love we put into giving."',
+      author:'Mother Teresa',
+      roleModel:'Mother Teresa', animal:'Cow',
+      fact:'Research shows Australia is the most generous country in the world. Over two-thirds of the country regularly volunteers or donates.',
+      reading:'The Little Prince', film:'Life is Beautiful',
+      awesome:[
+        'Know 6 charity scriptures',
+        'Know how to give a sincere, specific compliment',
+        'Complete the Awesome requirements for Empathy',
+        'Give money to someone in genuine need',
+        'Give your time to someone who needs help',
+        'Share a personal talent with someone else'
+      ],
+      epic:[
+        'Organize a service project for a family member',
+        'Organize a service project with a nonprofit organization',
+        'Organize a service project for a stranger',
+        'Memorize the Beatitudes',
+        'Memorize 12 scriptures about charity',
+        'Complete 12 hours of completely anonymous service',
+        'Donate money, time, or materials to 6 different charities',
+        'Create a charitable organization',
+        'Develop a fundraiser for a charitable organization',
+        'Give away your single favorite possession to someone who needs it more'
+      ]
+    },
+    {
+      id:'grit', name:'Grit', num:7,
+      quote:'"The difference between the impossible and the possible lies in a person\'s determination."',
+      author:'Tommy Lasorda',
+      roleModel:'Harriet Tubman', animal:'Bear',
+      fact:'It takes 60 to 80 repetitions to move something into long-term memory, and 10,000 hours to master a skill.',
+      reading:'The Odyssey', film:'The Goonies',
+      awesome:[
+        'Set a SMART goal and fully achieve it',
+        'Set aside 30 minutes a day to practice an approved skill for one month',
+        'Stay awake for 36 consecutive hours',
+        'Go 48 hours without looking at any screen',
+        'Do an approved difficult activity for 6 consecutive hours',
+        'Learn how to do something you have never done before'
+      ],
+      epic:[
+        'Write a persuasive essay about a topic you care deeply about',
+        'Pick any principle and complete ALL of the Epic level requirements',
+        'Do something that people genuinely believe cannot be done',
+        'Sell something to someone who actively doesn\'t want it',
+        'Find a four-leaf clover',
+        'Beat every level and side quest of a notoriously difficult video game',
+        'Complete every Awesome level requirement in this book',
+        'Complete an approved project that takes over a year',
+        'Memorize every memorization requirement in the book'
+      ]
+    },
+    {
+      id:'diligence', name:'Diligence', num:8,
+      quote:'"We are what we repeatedly do. Excellence then is not an act but a habit."',
+      author:'Aristotle',
+      roleModel:'Alexander Hamilton', animal:'Bee',
+      fact:'It takes approximately 30 days to establish a new habit.',
+      reading:'Outliers', film:'Groundhog Day',
+      awesome:[
+        'Use a calendar or day planner consistently for one full week',
+        'Make a prioritized to-do list and work through it',
+        'Set an alarm and wake up early for something that matters',
+        'Complete two Awesome level requirements simultaneously',
+        'Know your address, phone number, and social security number',
+        'Ask for a chore; when it\'s done, ask for another'
+      ],
+      epic:[
+        'Plan an event requiring coordination of 10+ people\'s schedules',
+        'Set a time-sensitive goal that requires coordination across groups',
+        'Earn Eagle Scout rank, or Gold Award',
+        'Be a member of the National Honor Society',
+        'Earn the Duty to God award',
+        'Maintain a 4.0 GPA for a full year',
+        'Organize a fundraiser with more than 20 people involved',
+        'Manage 3 or more extracurricular activities for a semester',
+        'Plan a wedding',
+        'Do something in a week that would normally take a month',
+        'Plan a full family vacation'
+      ]
+    },
+    {
+      id:'patience', name:'Patience', num:9,
+      quote:'"Patience, Iago. Patience."',
+      author:'Jafar',
+      roleModel:'Nelson Mandela', animal:'Emperor Penguin',
+      fact:'The average wait time for Space Mountain at Disneyland is 65 minutes.',
+      reading:'Great Expectations', film:'Rudy',
+      awesome:[
+        'Roast a marshmallow to absolute perfection',
+        'Do an activity you don\'t enjoy for a full session without complaining',
+        'Wait in line for more than 30 minutes without complaint',
+        'Sit through a 2-hour lecture attentively',
+        'Wait on hold for more than 15 minutes without hanging up',
+        'Count 1,000 objects one by one'
+      ],
+      epic:[
+        'Win a game of hide-and-seek that lasts longer than half an hour',
+        'Dig a hole deeper than your own height',
+        'Solve a Rubik\'s Cube',
+        'Complete a 1,000-piece puzzle',
+        'Plant a vegetable garden and see it through harvest',
+        'Be a living statue street performer for a full day',
+        'Start a collection of something unique and rare',
+        'Count 10,000 things',
+        'Bake a 3-tiered cake from scratch',
+        'Win a call-in radio contest',
+        'Volunteer 12+ hours at an animal shelter',
+        'Volunteer 12+ hours at a preschool or daycare'
+      ]
+    }
+  ]
+},
+
+{
+  id: 'social', name: 'Social', element: 'Water',
+  color: '#40A880', glow: 'rgba(64,168,128,0.25)', stroke: '#40A880',
+  symSvg: `<polygon points="30,50 5,12 55,12" stroke="#40A880" stroke-width="1.5" fill="none"/>`,
+  principles: [
+    {
+      id:'confidence', name:'Confidence', num:1,
+      quote:'"Always do your best. What you plant now, you will harvest later."',
+      author:'Og Mandino',
+      roleModel:'Theodore Roosevelt', animal:'Rhinoceros',
+      fact:'Any pizza can be a personal pizza if you believe in yourself.',
+      reading:'How to Win Friends and Influence People', film:'Ferris Bueller\'s Day Off',
+      awesome:[
+        'Talk openly about your personal strengths',
+        'Have a genuine conversation with someone you don\'t know well',
+        'Have a conversation with someone of the opposite sex',
+        'Make a professional-quality résumé',
+        'Haggle a price or complain to a manager to get a better deal',
+        'Know how to drive a stick shift'
+      ],
+      epic:[
+        'Earn the Public Speaking merit badge',
+        'Perform as the lead in a play',
+        'Perform a service for someone who does that same service professionally',
+        'Sell something door-to-door',
+        'Tutor another student in a subject',
+        'Perform an original work on stage (song, poem, comedy, etc.)',
+        'Earn Epic achievements for both First Aid and Survival',
+        'Host a radio show',
+        'Be part of a flash mob of more than 100 people',
+        'Live somewhere without your family for 3 months'
+      ]
+    },
+    {
+      id:'courage', name:'Courage', num:2,
+      quote:'"Courage is being scared to death… and saddling up anyway."',
+      author:'John Wayne',
+      roleModel:'Galileo', animal:'Lion',
+      fact:'Public speaking is the most common greatest fear — more common than heights, spiders, or even death.',
+      reading:'1984', film:'Back to the Future',
+      awesome:[
+        'Identify your fears and label them by name',
+        'Talk to a stranger in a public place about something meaningful',
+        'Read a bus schedule and take a city bus alone',
+        'Speak on a topic for 10 minutes to more than 100 people',
+        'Jump 20 feet into water',
+        'Look over the edge of a tall observation deck'
+      ],
+      epic:[
+        'Obtain a SCUBA diving certification',
+        'Raft or kayak Class 4 rapids',
+        'Skydive',
+        'Travel to a country where you don\'t speak the language',
+        'Take a flight without an adult',
+        'Take a bus to another city and back alone',
+        'Ride a roller coaster that is particularly fast or scary',
+        'Jump 30 feet into water',
+        'Speak for 15 minutes to over 1,000 people',
+        'Zip line more than 100 feet in the air',
+        'Pet an animal that can kill you'
+      ]
+    },
+    {
+      id:'leadership', name:'Leadership', num:3,
+      quote:'"No man will make a great leader who wants to do it all himself or get all the credit."',
+      author:'Andrew Carnegie',
+      roleModel:'Alexander the Great', animal:'Wolf',
+      fact:'Six of the last twelve U.S. presidents were left-handed.',
+      reading:'7 Habits of Highly Effective People', film:'The Lord of the Rings',
+      awesome:[
+        'Conduct a 30-minute meeting, taking notes and making action items',
+        'Delegate 3 tasks that are part of a larger project',
+        'Speak off the cuff for 5 minutes without preparation',
+        'Make a plan and follow it to completion',
+        'Negotiate a win-win compromise between two parties',
+        'Lead a discussion with more than 10 people'
+      ],
+      epic:[
+        'Start a business with at least one employee',
+        'Organize an event or outing involving more than 20 people',
+        'Be selected as leader of a group of more than 12 people',
+        'Be elected as leader of a group of more than 50 people',
+        'Teach a class for a full semester',
+        'Create an official club with more than 10 members',
+        'Be selected captain of a sports team',
+        'Know the name of every person in your grade at school',
+        'Know every U.S. president in order',
+        'Be recognized by a newspaper or magazine as a leader',
+        'Create an organization that continues after you leave'
+      ]
+    },
+    {
+      id:'empathy', name:'Empathy', num:4,
+      quote:'"No one cares how much you know, until they know how much you care."',
+      author:'Theodore Roosevelt',
+      roleModel:'Eleanor Roosevelt', animal:'Gorilla',
+      fact:'Wearing other people\'s shoes can spread fungus.',
+      reading:'Ender\'s Game', film:'Remember the Titans',
+      awesome:[
+        'Demonstrate genuine respect for women and girls',
+        'Talk to someone at length about their interests rather than your own',
+        'Know how to treat people with different disabilities respectfully',
+        'Shop for and select gifts for someone else\'s preferences, not yours',
+        'Argue convincingly in favor of something you personally disagree with',
+        'Demonstrate proper dinner manners in a formal setting'
+      ],
+      epic:[
+        'Be a foreign exchange student',
+        'Host a foreign exchange student',
+        'Interview 12 residents of a retirement center about their lives',
+        'Interview someone from each category on the disabilities list',
+        'Volunteer with a humanitarian organization in a developing country',
+        'Shadow 6 professionals from entirely different industries',
+        'Visit 12 cultural museums',
+        'Read 30 realistic fiction books set in the present day',
+        'Take 6 different legitimate personality tests and study the results',
+        'Act in a play as a real person who is very different from you',
+        'Take an accessibility training course'
+      ]
+    },
+    {
+      id:'enthusiasm', name:'Enthusiasm', num:5,
+      quote:'"Success consists of going from failure to failure without loss of enthusiasm."',
+      author:'Winston Churchill',
+      roleModel:'Amelia Earhart', animal:'Dolphin',
+      fact:'When the Detroit Red Wings make the playoffs, fans throw dead octopus onto the ice rink.',
+      reading:'As a Man Thinketh', film:'Mary Poppins',
+      awesome:[
+        'Talk openly about your personal accomplishments without embarrassment',
+        'Be genuinely excited for others\' accomplishments (not just yours)',
+        'Have a meaningful hobby you actively pursue',
+        'Meet 20 new people and remember every name',
+        'Talk to a stranger about something you are truly passionate about',
+        'Sit in the front row and participate fully in a class'
+      ],
+      epic:[
+        'Go to a sports event in full face paint',
+        'Pick a sports team and follow them for an entire season',
+        'Go to a fan convention',
+        'Throw a fully themed party',
+        'Fully participate in a school spirit week',
+        'Watch every episode of your favorite television show (2+ seasons)',
+        'Attend an advanced screening of a blockbuster movie',
+        'Get the autograph of a celebrity you genuinely admire',
+        'Cosplay a character from your favorite fandom',
+        'Arrive on time to every class for an entire school year',
+        'Volunteer at 3 long-distance races and cheer for the runners'
+      ]
+    },
+    {
+      id:'responsibility', name:'Responsibility', num:6,
+      quote:'"With great power comes great responsibility."',
+      author:'Uncle Ben',
+      roleModel:'Winston Churchill', animal:'Ant',
+      fact:'Disneyland employs over 600 custodians, janitors, and gardeners.',
+      reading:'The Screwtape Letters', film:'The Dark Knight',
+      awesome:[
+        'Know how to sweep, mop, and vacuum properly',
+        'Know how to clean a bathroom: sink, tub, and toilet',
+        'Know how to make a bed, dust surfaces, and fold laundry',
+        'Have regular chores and do them without being asked',
+        'Know how to change a tire, jump a dead battery, and change oil',
+        'Know how to mow, weed, and edge a lawn'
+      ],
+      epic:[
+        'Practice an instrument for 30 minutes a day for 3 months',
+        'Have 3 people list you as their emergency contact',
+        'Take care of a pet for a full year',
+        'Get an enhanced driver\'s license',
+        'Hold the same job for over a year',
+        'Plant a tree and see it survive to adulthood',
+        'Earn Epic for Diligence, Integrity, and Poise',
+        'Earn Epic for Empathy, Virtue, and Finance',
+        'Volunteer for a year at an environmental charity'
+      ]
+    },
+    {
+      id:'art', name:'Art', num:7,
+      quote:'"Every artist was first an amateur."',
+      author:'Ralph Waldo Emerson',
+      roleModel:'Leonardo Da Vinci', animal:'Chameleon',
+      fact:'The Mona Lisa wasn\'t well-known until it was stolen in 1911.',
+      reading:'Alice\'s Adventures in Wonderland', film:'Dead Poets Society',
+      awesome:[
+        'Draw a realistic face, an animal, and a stick figure (at different skill levels)',
+        'Be familiar with different mediums of visual art (see list)',
+        'Sculpt something recognizable out of clay',
+        'Convey a complex idea symbolically through an artform',
+        'Know how to care for art tools properly',
+        'Be familiar with major artists throughout history (see list)'
+      ],
+      epic:[
+        'Create works of art in every visual medium on the list',
+        'Win or place in an art competition',
+        'Visit 10 different art museums',
+        'Draw or paint a photorealistic picture',
+        'Sculpt something and cast it in metal',
+        'Create a work of art displayed at a festival',
+        'Create a work of art sold at auction',
+        'Create a work of art displayed in a museum',
+        'Be awarded a commissioned work of art',
+        'Know and identify major works of everyone on the artists list',
+        'Take a photography course',
+        'Know the Gestalt Principles'
+      ]
+    },
+    {
+      id:'music', name:'Music', num:8,
+      quote:'"Without music, life would be a mistake."',
+      author:'Friedrich Nietzsche',
+      roleModel:'Ludwig van Beethoven', animal:'Canary',
+      fact:'The song with the longest title is Hoagy Carmichael\'s 1943 "I\'m a Cranky Old Yank in a Clanky Old Tank on the Streets of Yokohama with my Honolulu Mama Doin\' Those Beat-o, Beat-o Flat-On-My-Seat-o, Hirohito Blues."',
+      reading:'Where the Sidewalk Ends', film:'The Sound of Music',
+      awesome:[
+        'Be familiar with basic musical notation',
+        'Know how to lead music in 2/4, 4/4, 3/4, and 6/8 time',
+        'Be familiar with classical and modern musicians from the lists',
+        'Whistle a recognizable tune clearly',
+        'Distinguish between major musical genres by ear',
+        'Sing Happy Birthday, Jingle Bells, and the National Anthem from memory'
+      ],
+      epic:[
+        'Sing a solo in a choir',
+        'Perform in a band on stage',
+        'Sing a solo in front of more than 100 people',
+        'Write and record an original song',
+        'Sing or perform the National Anthem at a professional sports event',
+        'Play an instrument in a formal recital',
+        'Earn the Music merit badge',
+        'Know the classical music list (Beethoven, Mozart, Bach, etc.)',
+        'Write an original musical score and have an orchestra perform it',
+        'Be able to play 5 different instruments',
+        'Receive a standing ovation from a musical performance'
+      ]
+    },
+    {
+      id:'culture', name:'Culture', num:9,
+      quote:'"Be excellent to each other. And party on dudes."',
+      author:'Abraham Lincoln',
+      roleModel:'Thomas Jefferson', animal:'Whale',
+      fact:'The Library of Congress has over 36 million books. It would take over 2,000 years to read them all.',
+      reading:'Ready Player One', film:'Dances With Wolves',
+      awesome:[
+        'Have a conversation with an adult about a major current event',
+        'Be familiar with government organization at Federal, State, and Local levels',
+        'Know the Pledge of Allegiance, the National Anthem, and proper flag etiquette',
+        'Be familiar with the Movie list, Movie Classics list, Games list, and Reading list',
+        'Know how to play the games on the Games list (chess, poker, Monopoly, etc.)',
+        'Be familiar with 3+ books on the Reading list'
+      ],
+      epic:[
+        'Work with a local government council to make a difference in your community',
+        'Be part of a community organization for a full year',
+        'Watch every movie on the Movie list (38 films)',
+        'Read every book on the Book list (38 books)',
+        'Watch every movie on the Movie Classics list (12 films)',
+        'Pick a game and play it with 100 different people',
+        'Pass an AP Civics test',
+        'Pass the U.S. Citizenship test',
+        'Memorize the Pledge of Allegiance, Declaration of Independence, and preamble of the Constitution',
+        'Participate in a community forum'
+      ]
+    }
+  ]
+}
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const KEY = 'eoa-tracker-v1';
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function toggleReq(pillarId, principleId, tier, idx) {
+  const k = `${pillarId}.${principleId}.${tier}.${idx}`;
+  state[k] = !state[k];
+  saveState();
+  renderPrincipleView(currentPillarId, currentPrincipleId);
+  updateGlobalProgress();
+}
+
+function isChecked(pillarId, principleId, tier, idx) {
+  return !!state[`${pillarId}.${principleId}.${tier}.${idx}`];
+}
+
+// ============================================================
+// PROGRESS CALC
+// ============================================================
+function getPrincipleProgress(pillarId, principle) {
+  const awesomeTotal = principle.awesome.length;
+  const awesomeDone = principle.awesome.filter((_, i) => isChecked(pillarId, principle.id, 'awesome', i)).length;
+  const epicDone = principle.epic.filter((_, i) => isChecked(pillarId, principle.id, 'epic', i)).length;
+  const legendaryDone = isChecked(pillarId, principle.id, 'legendary', 0) ? 1 : 0;
+
+  const awesomeComplete = awesomeDone >= awesomeTotal;
+  const epicComplete = epicDone >= 3;
+  const legendaryComplete = legendaryDone >= 1;
+
+  return { awesomeDone, awesomeTotal, epicDone, legendaryDone, awesomeComplete, epicComplete, legendaryComplete };
+}
+
+function getPillarProgress(pillar) {
+  let totalChecks = 0, doneChecks = 0;
+  for (const p of pillar.principles) {
+    const prog = getPrincipleProgress(pillar.id, p);
+    totalChecks += p.awesome.length + 3 + 1; // awesome + 3 epic needed + 1 legendary
+    doneChecks += prog.awesomeDone + Math.min(prog.epicDone, 3) + prog.legendaryDone;
+  }
+  return { totalChecks, doneChecks, pct: totalChecks ? Math.round(doneChecks / totalChecks * 100) : 0 };
+}
+
+function updateGlobalProgress() {
+  let total = 0, done = 0;
+  for (const pillar of PILLARS) {
+    const pp = getPillarProgress(pillar);
+    total += pp.totalChecks;
+    done += pp.doneChecks;
+  }
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('global-xp-fill').style.width = pct + '%';
+  document.getElementById('global-pct-text').textContent = pct + '%';
+  document.getElementById('global-checks-text').textContent = done + ' / ' + total;
+}
+
+// ============================================================
+// VIEWS
+// ============================================================
+let currentPillarId = null, currentPrincipleId = null;
+
+function showHome() {
+  document.querySelectorAll('[id^="view-"]').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-home').classList.add('active');
+  renderHome();
+  window.scrollTo(0, 0);
+}
+
+function showPillar(pillarId) {
+  currentPillarId = pillarId;
+  document.querySelectorAll('[id^="view-"]').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-pillar').classList.add('active');
+  renderPillarView(pillarId);
+  window.scrollTo(0, 0);
+}
+
+function showPrinciple(pillarId, principleId) {
+  currentPillarId = pillarId;
+  currentPrincipleId = principleId;
+  document.querySelectorAll('[id^="view-"]').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-principle').classList.add('active');
+  document.getElementById('principle-back-btn').onclick = () => showPillar(pillarId);
+  renderPrincipleView(pillarId, principleId);
+  window.scrollTo(0, 0);
+}
+
+// ============================================================
+// RENDER HOME
+// ============================================================
+function elSym(el) {
+  const svgs = {
+    earth: `<polygon points="30,50 5,12 55,12" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="18" y1="32" x2="42" y2="32" stroke="currentColor" stroke-width="1.5"/>`,
+    fire:  `<polygon points="30,10 55,48 5,48" stroke="currentColor" stroke-width="1.5" fill="none"/>`,
+    air:   `<polygon points="30,10 55,48 5,48" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="18" y1="28" x2="42" y2="28" stroke="currentColor" stroke-width="1.5"/>`,
+    water: `<polygon points="30,50 5,12 55,12" stroke="currentColor" stroke-width="1.5" fill="none"/>`
+  };
+  return svgs[el] || '';
+}
+
+function pillarEl(pillar) {
+  return pillar.element.toLowerCase();
+}
+
+function renderHome() {
+  const grid = document.getElementById('pillar-grid');
+  grid.innerHTML = '';
+  for (const pillar of PILLARS) {
+    const el = pillarEl(pillar);
+    const pp = getPillarProgress(pillar);
+    const pins = pillar.principles.map((p, i) => {
+      const prog = getPrincipleProgress(pillar.id, p);
+      let cls = '';
+      if (prog.legendaryComplete) cls = 'earned-legendary';
+      else if (prog.epicComplete) cls = 'earned-epic';
+      else if (prog.awesomeComplete) cls = 'earned-awesome';
+      return `<div class="pin-dot ${cls}" title="${p.name}"></div>`;
+    }).join('');
+
+    grid.innerHTML += `
+    <div class="pillar-card" data-el="${el}" onclick="showPillar('${pillar.id}')">
+      <div class="pillar-card-top">
+        <svg class="pillar-sym-large" viewBox="0 0 60 60" fill="none">
+          ${pillar.symSvg}
+        </svg>
+        <div class="pillar-card-name">${pillar.name}</div>
+        <div class="pillar-element-tag">Element of ${pillar.element}</div>
+      </div>
+      <div class="pillar-card-progress">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span>${pp.pct}%</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pp.pct}%"></div></div>
+        <div class="pin-row">${pins}</div>
+      </div>
+    </div>`;
+  }
+}
+
+// ============================================================
+// RENDER PILLAR
+// ============================================================
+function renderPillarView(pillarId) {
+  const pillar = PILLARS.find(p => p.id === pillarId);
+  if (!pillar) return;
+  const el = pillarEl(pillar);
+  const pp = getPillarProgress(pillar);
+
+  document.getElementById('pillar-view-header').innerHTML = `
+    <svg class="pillar-view-sym" viewBox="0 0 60 60" fill="none" style="color:${pillar.color}">
+      ${pillar.symSvg}
+    </svg>
+    <div class="pillar-view-meta">
+      <div class="pillar-view-element">Element of ${pillar.element}</div>
+      <div class="pillar-view-title" style="color:${pillar.color}">${pillar.name} Awesomeness</div>
+    </div>
+    <div class="pillar-view-progress">
+      <strong style="color:${pillar.color}">${pp.pct}%</strong>
+      <span style="font-size:0.7rem;color:var(--muted)">${pp.doneChecks} / ${pp.totalChecks} pts</span>
+    </div>
+  `;
+
+  const grid = document.getElementById('principle-grid');
+  grid.innerHTML = '';
+  for (const p of pillar.principles) {
+    const prog = getPrincipleProgress(pillarId, p);
+    grid.innerHTML += `
+    <div class="principle-tile" data-el="${el}" onclick="showPrinciple('${pillarId}','${p.id}')">
+      <div class="principle-num">Principle ${p.num} of 9</div>
+      <div class="principle-tile-name">${p.name}</div>
+      <div class="tile-badge-row">
+        <span class="tier-badge awesome ${prog.awesomeComplete ? 'earned' : ''}">Awesome</span>
+        <span class="tier-badge epic ${prog.epicComplete ? 'earned' : ''}">Epic</span>
+        <span class="tier-badge legendary ${prog.legendaryComplete ? 'earned' : ''}">Legendary</span>
+      </div>
+      <div class="tile-role-model">${p.roleModel}</div>
+    </div>`;
+  }
+}
+
+// ============================================================
+// RENDER PRINCIPLE
+// ============================================================
+function renderPrincipleView(pillarId, principleId) {
+  const pillar = PILLARS.find(p => p.id === pillarId);
+  const principle = pillar?.principles.find(p => p.id === principleId);
+  if (!pillar || !principle) return;
+
+  const el = pillarEl(pillar);
+  const prog = getPrincipleProgress(pillarId, principle);
+  const col = pillar.color;
+
+  // Awesome reqs
+  const awesomeItems = principle.awesome.map((req, i) => {
+    const checked = isChecked(pillarId, principleId, 'awesome', i);
+    return `<div class="req-item awesome-req ${checked ? 'checked' : ''}" onclick="toggleReq('${pillarId}','${principleId}','awesome',${i})">
+      <div class="req-checkbox"></div>
+      <div class="req-text">${req}</div>
+    </div>`;
+  }).join('');
+
+  const epicDone = principle.epic.filter((_, i) => isChecked(pillarId, principleId, 'epic', i)).length;
+  const epicItems = principle.epic.map((req, i) => {
+    const checked = isChecked(pillarId, principleId, 'epic', i);
+    return `<div class="req-item epic-req ${checked ? 'checked' : ''}" onclick="toggleReq('${pillarId}','${principleId}','epic',${i})">
+      <div class="req-checkbox"></div>
+      <div class="req-text">${req}</div>
+    </div>`;
+  }).join('');
+
+  const legChecked = isChecked(pillarId, principleId, 'legendary', 0);
+
+  const view = document.getElementById('principle-view');
+  view.innerHTML = `
+    <div class="principle-hero anim-in">
+      <div>
+        <div class="principle-number" style="color:${col}">${pillar.name} Pillar &mdash; Principle ${principle.num} of 9</div>
+        <div class="principle-name" style="color:${col}">${principle.name}</div>
+        <div class="principle-quote-block" style="border-color:${col}">
+          <p>${principle.quote}</p>
+          <cite>&mdash; ${principle.author}</cite>
+        </div>
+        <div class="principle-meta-row">
+          <div class="meta-item">
+            <span class="meta-label">Role Model</span>
+            <span class="meta-value">${principle.roleModel}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Spirit Animal</span>
+            <span class="meta-value">${principle.animal}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Element</span>
+            <span class="meta-value">${pillar.element}</span>
+          </div>
+        </div>
+      </div>
+      <div class="principle-fact-box">
+        <div class="fact-label">Did You Know?</div>
+        <div class="fact-text">${principle.fact}</div>
+      </div>
+    </div>
+
+    <!-- TIER: AWESOME -->
+    <div class="tier-section anim-in stagger-1">
+      <div class="tier-header">
+        <div class="tier-icon awesome">I</div>
+        <div class="tier-title awesome">Awesome</div>
+        <div class="tier-subtitle">Complete all ${principle.awesome.length} requirements</div>
+        <span class="tier-completed-badge awesome ${prog.awesomeComplete ? 'show' : ''}">Earned</span>
+      </div>
+      <div class="req-list">${awesomeItems}</div>
+    </div>
+
+    <!-- TIER: EPIC -->
+    <div class="tier-section anim-in stagger-2">
+      <div class="tier-header">
+        <div class="tier-icon epic">II</div>
+        <div class="tier-title epic">Epic</div>
+        <div class="tier-subtitle">Complete any 3 of ${principle.epic.length}</div>
+        <span class="tier-completed-badge epic ${prog.epicComplete ? 'show' : ''}">Earned</span>
+      </div>
+      <div class="epic-counter" style="color:${col}">
+        ${Math.min(epicDone,3)} / 3 selected &mdash; ${epicDone} total checked
+      </div>
+      <div class="req-list">${epicItems}</div>
+    </div>
+
+    <!-- TIER: LEGENDARY -->
+    <div class="tier-section anim-in stagger-3">
+      <div class="tier-header">
+        <div class="tier-icon legendary">III</div>
+        <div class="tier-title legendary">Legendary</div>
+        <div class="tier-subtitle">Complete a Legendary Project</div>
+        <span class="tier-completed-badge legendary ${prog.legendaryComplete ? 'show' : ''}">Earned</span>
+      </div>
+      <div class="req-list">
+        <div class="req-item legendary-req ${legChecked ? 'checked' : ''}" onclick="toggleReq('${pillarId}','${principleId}','legendary',0)">
+          <div class="req-checkbox"></div>
+          <div class="req-text">Complete an approved Legendary Project related to ${principle.name}. Work with your Sponsor to write a proposal; then document what you did in a 500–1,000 word summary. Must have Awesome and Epic completed first.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUGGESTED -->
+    <div class="suggested-row anim-in stagger-4">
+      <div class="suggested-box">
+        <div class="sug-label">Suggested Reading</div>
+        <div class="sug-val">${principle.reading}</div>
+      </div>
+      <div class="suggested-box">
+        <div class="sug-label">Suggested Film</div>
+        <div class="sug-val">${principle.film}</div>
+      </div>
+    </div>
+  `;
+
+  checkAndToast(prog);
+  updateGlobalProgress();
+  updatePillarCardsIfVisible();
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer = null;
+let lastToastKey = '';
+
+function checkAndToast(prog) {
+  if (prog.legendaryComplete && lastToastKey !== 'legendary') {
+    lastToastKey = 'legendary';
+    showToast('Legendary Achievement Unlocked');
+  } else if (prog.epicComplete && lastToastKey !== 'epic' && !prog.legendaryComplete) {
+    lastToastKey = 'epic';
+    showToast('Epic Achievement Unlocked');
+  } else if (prog.awesomeComplete && lastToastKey !== 'awesome' && !prog.epicComplete) {
+    lastToastKey = 'awesome';
+    showToast('Awesome Achievement Unlocked');
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function updatePillarCardsIfVisible() {
+  if (document.getElementById('view-home').classList.contains('active')) renderHome();
+  if (document.getElementById('view-pillar').classList.contains('active')) renderPillarView(currentPillarId);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+showHome();
+updateGlobalProgress();
+</script>
+</body>
+</html>
